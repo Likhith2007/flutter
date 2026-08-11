@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:shata_app/core/localization/language_provider.dart';
 import 'package:shata_app/core/widgets/custom_button.dart';
 import 'package:shata_app/core/widgets/shata_badge.dart';
-import 'package:shata_app/features/vendors/domain/models/vendor.dart';
 import 'package:shata_app/features/vendors/presentation/providers/vendor_provider.dart';
 import 'package:shata_app/features/booking/presentation/screens/booking_checkout_screen.dart';
 

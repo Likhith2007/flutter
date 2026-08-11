@@ -11,7 +11,6 @@ class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   void _showWishlistModal(BuildContext context) {
-    final theme = Theme.of(context);
     final vendorProvider = Provider.of<VendorProvider>(context, listen: false);
     final wishlist = vendorProvider.wishlistVendors;
 

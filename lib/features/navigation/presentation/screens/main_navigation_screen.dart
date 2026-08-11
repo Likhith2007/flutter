@@ -73,9 +73,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               activeIcon: const Icon(Icons.confirmation_number_rounded),
               label: lang.getText('my_bookings'),
             ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.account_balance_wallet_outlined),
-              activeIcon: const Icon(Icons.account_balance_wallet_rounded),
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.account_balance_wallet_outlined),
+              activeIcon: Icon(Icons.account_balance_wallet_rounded),
               label: 'Planner',
             ),
             BottomNavigationBarItem(

@@ -48,7 +48,7 @@ class AppTheme {
           color: const Color(0xFF334155),
         ),
       ),
-      cardTheme: CardThemeData(
+      cardTheme: CardTheme(
         color: lightSurface,
         elevation: 2,
         shadowColor: Colors.black.withOpacity(0.06),
@@ -125,7 +125,7 @@ class AppTheme {
           color: const Color(0xFFCBD5E1),
         ),
       ),
-      cardTheme: CardThemeData(
+      cardTheme: CardTheme(
         color: darkSurface,
         elevation: 4,
         shadowColor: Colors.black.withOpacity(0.3),
