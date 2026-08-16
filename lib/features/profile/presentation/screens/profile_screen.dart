@@ -237,7 +237,7 @@ class ProfileScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Likhith Imandi',
+                          'Srinath Sinde',
                           style: GoogleFonts.outfit(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -245,7 +245,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          'likhith.imandi@shata.in',
+                          'srinath.sinde@shata.in',
                           style: GoogleFonts.plusJakartaSans(
                             fontSize: 13,
                             color: theme.colorScheme.onSurface.withOpacity(0.6),
