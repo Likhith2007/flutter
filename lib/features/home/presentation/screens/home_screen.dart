@@ -298,7 +298,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
-                  childAspectRatio: 0.95,
+                  childAspectRatio: 0.82,
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
                 ),
@@ -318,46 +318,112 @@ class _HomeScreenState extends State<HomeScreen> {
                       vendorProvider.setCategory(cat['id']);
                       widget.onNavigateTab(1);
                     },
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(18),
                     child: Container(
+                      clipBehavior: Clip.antiAlias,
                       decoration: BoxDecoration(
-                        color: theme.cardTheme.color,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(
-                          color: theme.dividerColor.withOpacity(0.15),
-                        ),
+                        borderRadius: BorderRadius.circular(18),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.15),
+                            blurRadius: 8,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      child: Stack(
+                        fit: StackFit.expand,
                         children: [
+                          // High resolution Category Image
+                          Image.network(
+                            cat['image'],
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(color: theme.cardTheme.color);
+                            },
+                          ),
+
+                          // Dark Luxury Linear Gradient Overlay
                           Container(
-                            padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: theme.primaryColor.withOpacity(0.1),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(
-                              iconData,
-                              color: theme.primaryColor,
-                              size: 24,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            cat['name'],
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.outfit(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 13,
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Colors.black.withOpacity(0.25),
+                                  Colors.black.withOpacity(0.85),
+                                ],
+                              ),
                             ),
                           ),
-                          const SizedBox(height: 2),
-                          Text(
-                            cat['itemCount'],
-                            style: GoogleFonts.plusJakartaSans(
-                              fontSize: 10,
-                              color: theme.colorScheme.onSurface
-                                  .withOpacity(0.5),
+
+                          // Content Layout
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                // Top Icon Badge
+                                Align(
+                                  alignment: Alignment.topRight,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(6),
+                                    decoration: BoxDecoration(
+                                      color: Colors.black.withOpacity(0.5),
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                        color: Colors.white.withOpacity(0.3),
+                                        width: 1,
+                                      ),
+                                    ),
+                                    child: Icon(
+                                      iconData,
+                                      color: Colors.amberAccent,
+                                      size: 16,
+                                    ),
+                                  ),
+                                ),
+
+                                // Bottom Text details
+                                Column(
+                                  children: [
+                                    Text(
+                                      cat['name'],
+                                      textAlign: TextAlign.center,
+                                      maxLines: 2,
+                                      style: GoogleFonts.outfit(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 13,
+                                        color: Colors.white,
+                                        shadows: [
+                                          const Shadow(
+                                            blurRadius: 4,
+                                            color: Colors.black,
+                                            offset: Offset(0, 1),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 6, vertical: 2),
+                                      decoration: BoxDecoration(
+                                        color: theme.primaryColor.withOpacity(0.8),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Text(
+                                        cat['itemCount'],
+                                        style: GoogleFonts.plusJakartaSans(
+                                          fontSize: 9,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
                         ],

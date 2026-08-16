@@ -304,7 +304,8 @@ class VendorProvider extends ChangeNotifier {
         verified: true,
         isFeatured: false,
         images: [
-          'https://images.unsplash.com/photo-1545232979-fbfd42e000b9?auto=format&fit=crop&w=800&q=80',
+          'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=800&q=80',
+          'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80',
         ],
         description:
             'Air-conditioned banquet hall with 1500+ seating capacity, landscaped lawn, dedicated bridal suites, and ample parking for 400 vehicles.',

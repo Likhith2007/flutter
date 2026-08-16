@@ -18,6 +18,7 @@ class AppConstants {
       'name': 'Photography',
       'icon': 'camera',
       'itemCount': '480+ Vendors',
+      'image': 'https://images.unsplash.com/photo-1537633552985-df8429e8048b?q=80&w=800&auto=format&fit=crop',
       'description': 'Wedding, Cinematic, Pre-wedding, Maternity & Drones',
     },
     {
@@ -25,6 +26,7 @@ class AppConstants {
       'name': 'Catering',
       'icon': 'restaurant',
       'itemCount': '350+ Caterers',
+      'image': 'https://images.unsplash.com/photo-1555244162-803834f70033?q=80&w=800&auto=format&fit=crop',
       'description': 'Buffet, Live Counters, Gourmet & Custom Menus',
     },
     {
@@ -32,6 +34,7 @@ class AppConstants {
       'name': 'Decor & Stage',
       'icon': 'auto_awesome',
       'itemCount': '290+ Designers',
+      'image': 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop',
       'description': 'Theme Decor, Floral Setup, Lighting & Entry Gates',
     },
     {
@@ -39,6 +42,7 @@ class AppConstants {
       'name': 'Venues',
       'icon': 'location_city',
       'itemCount': '180+ Spaces',
+      'image': 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=800&auto=format&fit=crop',
       'description': 'Banquet Halls, Lawns, Beach Resorts & Convention Centers',
     },
     {
@@ -46,6 +50,7 @@ class AppConstants {
       'name': 'Event Planners',
       'icon': 'event_available',
       'itemCount': '140+ Teams',
+      'image': 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=800&auto=format&fit=crop',
       'description': 'Full Event Management & Day-of Coordination',
     },
     {
@@ -53,6 +58,7 @@ class AppConstants {
       'name': 'Entertainment',
       'icon': 'music_note',
       'itemCount': '210+ Performers',
+      'image': 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=800&auto=format&fit=crop',
       'description': 'DJs, Live Bands, Anchors & Choreographers',
     },
   ];

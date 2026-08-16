@@ -1,5 +1,7 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:shata_app/core/constants/app_constants.dart';
 import 'package:shata_app/core/localization/language_provider.dart';
@@ -7,8 +9,67 @@ import 'package:shata_app/core/theme/theme_provider.dart';
 import 'package:shata_app/features/vendors/presentation/providers/vendor_provider.dart';
 import 'package:shata_app/features/vendors/presentation/screens/vendor_detail_screen.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  Uint8List? _profileImageBytes;
+  bool _isUploading = false;
+
+  Future<void> _pickProfileImage() async {
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? image = await picker.pickImage(
+        source: ImageSource.gallery,
+        maxWidth: 800,
+        maxHeight: 800,
+        imageQuality: 85,
+      );
+
+      if (image != null) {
+        setState(() => _isUploading = true);
+        final bytes = await image.readAsBytes();
+        setState(() {
+          _profileImageBytes = bytes;
+          _isUploading = false;
+        });
+
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Row(
+                children: [
+                  const Icon(Icons.check_circle, color: Colors.white),
+                  const SizedBox(width: 10),
+                  Text(
+                    'Profile picture updated successfully!',
+                    style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+              backgroundColor: const Color(0xFF10B981),
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      setState(() => _isUploading = false);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to select image: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
 
   void _showWishlistModal(BuildContext context) {
     final vendorProvider = Provider.of<VendorProvider>(context, listen: false);
@@ -226,10 +287,56 @@ class ProfileScreen extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  const CircleAvatar(
-                    radius: 32,
-                    backgroundImage:
-                        NetworkImage('https://i.pravatar.cc/150?img=68'),
+                  // Interactive Profile Avatar with Upload Badge
+                  GestureDetector(
+                    onTap: _pickProfileImage,
+                    child: Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: theme.primaryColor,
+                              width: 2.5,
+                            ),
+                          ),
+                          child: CircleAvatar(
+                            radius: 34,
+                            backgroundColor: theme.primaryColor.withOpacity(0.1),
+                            backgroundImage: _profileImageBytes != null
+                                ? MemoryImage(_profileImageBytes!)
+                                : const NetworkImage('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop')
+                                    as ImageProvider,
+                            child: _isUploading
+                                ? const CircularProgressIndicator(strokeWidth: 2)
+                                : null,
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: theme.primaryColor,
+                              shape: BoxShape.circle,
+                              border: Border.all(color: theme.scaffoldBackgroundColor, width: 2),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  blurRadius: 4,
+                                ),
+                              ],
+                            ),
+                            child: const Icon(
+                              Icons.camera_alt,
+                              size: 14,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
@@ -252,21 +359,38 @@ class ProfileScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 6),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: theme.primaryColor.withOpacity(0.15),
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: Text(
-                            'VIP Event Member',
-                            style: GoogleFonts.outfit(
-                              fontSize: 11,
-                              fontWeight: FontWeight.bold,
-                              color: theme.primaryColor,
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: theme.primaryColor.withOpacity(0.15),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Text(
+                                'VIP Event Member',
+                                style: GoogleFonts.outfit(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                  color: theme.primaryColor,
+                                ),
+                              ),
                             ),
-                          ),
+                            const SizedBox(width: 8),
+                            InkWell(
+                              onTap: _pickProfileImage,
+                              child: Text(
+                                'Change Photo',
+                                style: GoogleFonts.outfit(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                  color: theme.colorScheme.secondary,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

@@ -356,6 +356,27 @@ class _VendorListScreenState extends State<VendorListScreen> {
                                       height: 160,
                                       width: double.infinity,
                                       fit: BoxFit.cover,
+                                      errorBuilder: (context, error, stackTrace) {
+                                        return Container(
+                                          height: 160,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                              colors: [
+                                                theme.primaryColor.withOpacity(0.5),
+                                                theme.colorScheme.secondary.withOpacity(0.5),
+                                              ],
+                                            ),
+                                          ),
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.location_city,
+                                              size: 48,
+                                              color: Colors.white.withOpacity(0.8),
+                                            ),
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ),
                                   Positioned(
